@@ -15,6 +15,3 @@ It'll also create an output folder, leaving the original files intact.
 
 
 ![Example](https://i.imgur.com/rkqq7vg.jpg)
-
-## To-Do
-• Skips decode if destination folder exists
