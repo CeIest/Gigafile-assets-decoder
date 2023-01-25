@@ -26,7 +26,7 @@ def rename_subdirectories(directory):
     for root, dirs, files in os.walk(directory):
         for dir_name in dirs:
             if dir_name.endswith("ò"): # REMOVING THAT ONE ANNOYING CARACTER THAT BREAKS THE DECODING
-                dir_name = os.rename(dir_name, dir_name[:-1])
+                dir_name = dir_name.rstrip('ò')
             original_filepath = os.path.join(root, dir_name)
             decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
             print("decrypting folder  " + decoded_dirname)
