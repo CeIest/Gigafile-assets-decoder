@@ -1,6 +1,7 @@
 # Gigafile-assets-decoder
 
-Decodes the name of the Japanese files &amp; folders downloaded from gigafile.nu.
+Decodes the name of the Japanese files &amp; folders downloaded from gigafile.nu.<br>
+Script mostly intended for foreign animators who receive mojibaked file and folder names.
 
 ## Usage
 
