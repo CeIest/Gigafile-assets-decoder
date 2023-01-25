@@ -20,3 +20,5 @@ for root, dirs, files in os.walk(folder_path):
         print("decrypting file  " + decoded_filename)
         decoded_filepath = os.path.join(dest_dir, decoded_filename)
         shutil.copy2(original_filepath, decoded_filepath)
+
+print('\nDecryption complete.')
