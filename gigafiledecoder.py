@@ -35,3 +35,5 @@ def rename_subdirectories(directory):
             os.rename(oworiginal_filepath, decoded_filepath)
             rename_subdirectories(decoded_filepath)
 rename_subdirectories(destination_folder)
+
+print('\nDecoding complete.')
