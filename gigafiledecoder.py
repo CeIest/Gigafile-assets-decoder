@@ -22,19 +22,15 @@ for root, dirs, files in os.walk(folder_path):
         shutil.copy2(original_filepath, decoded_filepath)
 print('\n')
 
-
-# for root, dirs, files in os.walk(destination_folder):
-#     for dir_name in dirs:
-#         original_filepath = os.path.join(root, dir_name)
-#         print(original_filepath)
-        # # REMOVES THE SUFFIX ò FROM FOLDER NAME IF IT EXISTS
-        # decoded_path = original_filepath.encode("cp850", "ignore").decode("shiftjis")
-        # print("decrypting file  " + decoded_path)
-
-
-
-
-
-
-
-print('\nDecryption complete.')
+def rename_subdirectories(directory):
+    for root, dirs, files in os.walk(directory):
+        for dir_name in dirs:
+            if dir_name.endswith("ò"): # REMOVING THAT ONE ANNOYING CARACTER THAT BREAKS THE DECODING
+                dir_name = os.rename(dir_name, dir_name[:-1])
+            original_filepath = os.path.join(root, dir_name)
+            decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
+            print("decrypting folder  " + decoded_dirname)
+            decoded_filepath = os.path.join(root, decoded_dirname)
+            os.rename(original_filepath, decoded_filepath)
+            rename_subdirectories(decoded_filepath)
+rename_subdirectories(destination_folder)
