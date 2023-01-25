@@ -20,5 +20,21 @@ for root, dirs, files in os.walk(folder_path):
         print("decrypting file  " + decoded_filename)
         decoded_filepath = os.path.join(dest_dir, decoded_filename)
         shutil.copy2(original_filepath, decoded_filepath)
+print('\n')
+
+
+# for root, dirs, files in os.walk(destination_folder):
+#     for dir_name in dirs:
+#         original_filepath = os.path.join(root, dir_name)
+#         print(original_filepath)
+        # # REMOVES THE SUFFIX ò FROM FOLDER NAME IF IT EXISTS
+        # decoded_path = original_filepath.encode("cp850", "ignore").decode("shiftjis")
+        # print("decrypting file  " + decoded_path)
+
+
+
+
+
+
 
 print('\nDecryption complete.')
