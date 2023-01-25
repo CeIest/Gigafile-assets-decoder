@@ -11,3 +11,6 @@ Simply launch the python script by clicking on it, or by launching it with the C
 
 The script will ask you to select the folder to decode.<br>
 It'll also create an output folder, leaving the original files intact.
+
+## To-Do
+• Decode the folder names
