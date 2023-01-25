@@ -15,3 +15,8 @@ It'll also create an output folder, leaving the original files intact.
 
 
 ![Example](https://i.imgur.com/rkqq7vg.jpg)
+
+
+
+## To-do
+• Clean the fuck out of this code

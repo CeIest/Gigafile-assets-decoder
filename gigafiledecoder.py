@@ -4,12 +4,15 @@ from tkinter import Tk
 from tkinter.filedialog import askdirectory
 
 
+# Prompts folder input
 Tk().withdraw()
 folder_path = askdirectory()
 destination_folder = folder_path + "_decrypted"
 
 print('\nDecoding folder "' + os.path.basename(folder_path) + '"...\n')
 
+
+# Decodes all filenames
 for root, dirs, files in os.walk(folder_path):
     dest_dir = os.path.join(destination_folder, os.path.relpath(root, folder_path))
     os.makedirs(dest_dir, exist_ok=True)
@@ -22,18 +25,20 @@ for root, dirs, files in os.walk(folder_path):
         shutil.copy2(original_filepath, decoded_filepath)
 print('\n')
 
+
+# Decodes all the folder names inside the decoded root folder
 def rename_subdirectories(directory):
     for root, dirs, files in os.walk(directory):
         for dir_name in dirs:
             oworiginal_filepath = os.path.join(root, dir_name)
-            if dir_name.endswith("ò"):
+            if dir_name.endswith("ò"): # This char as suffix is useless and breaks the decoding.
                 dir_name = dir_name.rstrip('ò')
-            original_filepath = os.path.join(root, dir_name)
             decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
             print("Decoding folder  " + decoded_dirname)
             decoded_filepath = os.path.join(root, decoded_dirname)
             os.rename(oworiginal_filepath, decoded_filepath)
             rename_subdirectories(decoded_filepath)
 rename_subdirectories(destination_folder)
+
 
 print('\nDecoding complete.')
