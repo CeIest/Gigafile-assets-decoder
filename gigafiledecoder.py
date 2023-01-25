@@ -22,15 +22,16 @@ for root, dirs, files in os.walk(folder_path):
         shutil.copy2(original_filepath, decoded_filepath)
 print('\n')
 
-# def rename_subdirectories(directory):
-#     for root, dirs, files in os.walk(directory):
-#         for dir_name in dirs:
-#             if dir_name.endswith("ò"): # REMOVING THAT ONE ANNOYING CARACTER THAT BREAKS THE DECODING
-#                 dir_name = dir_name.rstrip('ò')
-#             original_filepath = os.path.join(root, dir_name)
-#             decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
-#             print("Decoding folder  " + decoded_dirname)
-#             decoded_filepath = os.path.join(root, decoded_dirname)
-#             os.rename(original_filepath, decoded_filepath)
-#             rename_subdirectories(decoded_filepath)
-# rename_subdirectories(destination_folder)
+def rename_subdirectories(directory):
+    for root, dirs, files in os.walk(directory):
+        for dir_name in dirs:
+            oworiginal_filepath = os.path.join(root, dir_name)
+            if dir_name.endswith("ò"):
+                dir_name = dir_name.rstrip('ò')
+            original_filepath = os.path.join(root, dir_name)
+            decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
+            print("Decoding folder  " + decoded_dirname)
+            decoded_filepath = os.path.join(root, decoded_dirname)
+            os.rename(oworiginal_filepath, decoded_filepath)
+            rename_subdirectories(decoded_filepath)
+rename_subdirectories(destination_folder)
