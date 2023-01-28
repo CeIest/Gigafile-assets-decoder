@@ -33,6 +33,8 @@ def rename_subdirectories(directory):
             oworiginal_filepath = os.path.join(root, dir_name)
             if dir_name.endswith("ò"): # This char as suffix is useless and breaks the decoding.
                 dir_name = dir_name.rstrip('ò')
+            if dir_name.endswith("É"): # This char as suffix is useless and breaks the decoding.
+                dir_name = dir_name.rstrip('É')
             decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
             print("Decoding folder  " + decoded_dirname)
             decoded_filepath = os.path.join(root, decoded_dirname)
