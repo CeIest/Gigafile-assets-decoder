@@ -19,7 +19,11 @@ for root, dirs, files in os.walk(folder_path):
 
     for file_name in files:
         original_filepath = os.path.join(root, file_name)
-        decoded_filename = file_name.encode("cp850", "ignore").decode("shiftjis")
+        try:
+            decoded_filename = file_name.encode("cp437", "ignore").decode("shiftjis")
+        except UnicodeDecodeError:
+            decoded_filename = file_name
+            print(f"Could not rename {decoded_filename}")
         print("Decoding file  " + decoded_filename)
         decoded_filepath = os.path.join(dest_dir, decoded_filename)
         shutil.copy2(original_filepath, decoded_filepath)
@@ -35,11 +39,18 @@ def rename_subdirectories(directory):
                 dir_name = dir_name.rstrip('ò')
             if dir_name.endswith("É"): # This char as suffix is useless and breaks the decoding.
                 dir_name = dir_name.rstrip('É')
-            decoded_dirname = dir_name.encode("cp850", "ignore").decode("shiftjis")
+            try:
+                decoded_dirname = dir_name.encode("cp437", "ignore").decode("shiftjis")
+            except UnicodeDecodeError:
+                decoded_dirname = dir_name
+                print(f"Could not rename {decoded_dirname}")
             print("Decoding folder  " + decoded_dirname)
             decoded_filepath = os.path.join(root, decoded_dirname)
             os.rename(oworiginal_filepath, decoded_filepath)
-            rename_subdirectories(decoded_filepath)
+            try:
+                rename_subdirectories(decoded_filepath)
+            except FileExistsError:
+                print(f"Could not rename {oworiginal_filepath} into {decoded_filepath}")
 rename_subdirectories(destination_folder)
 
 
