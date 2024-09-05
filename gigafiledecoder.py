@@ -25,10 +25,13 @@ click.secho(f'\nDecoding folder "{os.path.basename(src_dir)}"...\n', fg='green')
 
  
 for dirpath, _, filenames in os.walk(src_dir):
-
-    rel_dir = os.path.relpath(dirpath, src_dir)
-    rel_dir_enc = rel_dir.encode(ENC_FORMAT, "ignore").decode("shiftjis")
-
+    try:
+        rel_dir = os.path.relpath(dirpath, src_dir).rstrip('ò').rstrip('É')
+        
+        rel_dir_enc = rel_dir.encode(ENC_FORMAT, "ignore").decode("shiftjis")
+    except UnicodeDecodeError:
+        click.secho(f"Couldn't decrypt {rel_dir}. Copying as original", fg="red")
+        rel_dir_enc = rel_dir
 
     final_dir = os.path.join(dest_dir, rel_dir_enc)
     os.makedirs(final_dir, exist_ok=True)
