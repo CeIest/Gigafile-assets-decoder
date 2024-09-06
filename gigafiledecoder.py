@@ -38,8 +38,12 @@ for dirpath, _, filenames in os.walk(src_dir):
         
 
     for file in filenames:
-        file_enc = file.encode(ENC_FORMAT, "ignore").decode("shiftjis")
-        print(f'Decoding  "{rel_dir_enc}/{file_enc}"')
+        try:
+            file_enc = file.rstrip('ò').rstrip('É').encode(ENC_FORMAT, "ignore").decode("shiftjis")
+            print(f'Decoding  "{rel_dir_enc}/{file_enc}"')
+        except UnicodeDecodeError:
+            click.secho(f"Couldn't decrypt {file}. Copying as original", fg="red")
+            file_enc = file
 
         shutil.copy2(os.path.join(dirpath, file), os.path.join(final_dir, file_enc))
 
